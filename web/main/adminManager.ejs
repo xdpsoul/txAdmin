@@ -92,7 +92,7 @@
                                             </button>
                                         <% } else { %>
                                             <button class="btn btn-sm btn-outline-primary"
-                                                onclick="getAdminModal('<%= admin.name %>')">
+                                                onclick="getAdminModal(<%= escapeHtmlRawText(JSON.stringify(admin.name)) %>)">
                                                 <i class="icon-pencil"></i> Edit
                                             </button>
                                         <% } %>
@@ -103,7 +103,7 @@
                                             </button>
                                         <% } else { %>
                                             <button class="btn btn-sm btn-outline-danger"
-                                                onclick="deleteAdmin('<%= admin.name %>')">
+                                                onclick="deleteAdmin(<%= escapeHtmlRawText(JSON.stringify(admin.name)) %>)">
                                                 <i class="icon-trash"></i> Delete
                                             </button>
                                         <% } %>

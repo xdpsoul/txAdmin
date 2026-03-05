@@ -160,38 +160,30 @@ async function handleValidateLocalDataFolder(ctx) {
     //FIXME: replace with stuff in core/routes/settings/saveConfigs.ts > handleFxserverCard
     try {
         if (!fse.existsSync(path.join(dataFolderPath, 'resources'))) {
-            const recoveryTemplate = `The path provided is invalid. <br>
-                But it looks like <code>{{attempt}}</code> is correct. <br>
-                Do you want to use it instead?`;
-
             //Recovery if parent folder
             const attemptIsParent = path.join(dataFolderPath, '..');
             if (fse.existsSync(path.join(attemptIsParent, 'resources'))) {
-                const message = recoveryTemplate.replace('{{attempt}}', attemptIsParent);
-                return ctx.send({success: false, message, suggestion: attemptIsParent});
+                return ctx.send({success: false, suggestion: attemptIsParent});
             }
 
             //Recovery parent inside folder
             const attemptOutside = getPotentialServerDataFolders(path.join(dataFolderPath, '..'));
             if (attemptOutside.length >= 1) {
-                const message = recoveryTemplate.replace('{{attempt}}', attemptOutside[0]);
-                return ctx.send({success: false, message, suggestion: attemptOutside[0]});
+                return ctx.send({success: false, suggestion: attemptOutside[0]});
             }
 
             //Recovery if resources
             if (dataFolderPath.includes('/resources')) {
                 const attemptRes = dataFolderPath.split('/resources')[0];
                 if (fse.existsSync(path.join(attemptRes, 'resources'))) {
-                    const message = recoveryTemplate.replace('{{attempt}}', attemptRes);
-                    return ctx.send({success: false, message, suggestion: attemptRes});
+                    return ctx.send({success: false, suggestion: attemptRes});
                 }
             }
 
             //Recovery subfolder
             const attemptInside = getPotentialServerDataFolders(dataFolderPath);
             if (attemptInside.length >= 1) {
-                const message = recoveryTemplate.replace('{{attempt}}', attemptInside[0]);
-                return ctx.send({success: false, message, suggestion: attemptInside[0]});
+                return ctx.send({success: false, suggestion: attemptInside[0]});
             }
 
             //really invalid :(

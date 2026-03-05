@@ -5,14 +5,13 @@ import { DatabaseActionBanType, DatabaseActionType, DatabaseWhitelistApprovalsTy
 import { anyUndefined, now } from '@lib/misc';
 import { filterPlayerHwids, parsePlayerIds, summarizeIdsArray } from '@lib/player/idUtils';
 import type { PlayerIdsObjectType } from "@shared/otherTypes";
-import xssInstancer from '@lib/xss';
+import { escapeHtmlContent } from '@lib/htmlRenderSafety';
 import playerResolver from '@lib/player/playerResolver';
 import humanizeDuration, { Unit } from 'humanize-duration';
 import consoleFactory from '@lib/console';
 import { TimeCounter } from '@modules/Metrics/statsUtils';
 import { InitializedCtx } from '@modules/WebServer/ctxTypes';
 const console = consoleFactory(modulename);
-const xss = xssInstancer();
 
 //Helper
 const htmlCodeTag = '<code style="background-color: hsl(202deg 40% 66% / 35%); padding: 2px 2px; border-radius: 4px;">';
@@ -200,7 +199,7 @@ function checkBan(
         //Ban author
         let authorLine = '';
         if (!txConfig.gameFeatures.hideAdminInPunishments) {
-            authorLine = `<strong>${textKeys.label_author}:</strong> ${xss(ban.author)} <br>`;
+            authorLine = `<strong>${textKeys.label_author}:</strong> ${escapeHtmlContent(ban.author)} <br>`;
         }
 
         //Informational notes
@@ -218,7 +217,7 @@ function checkBan(
             title,
             `${expLine}
             <strong>${textKeys.label_date}:</strong> ${banDate} <br>
-            <strong>${textKeys.label_reason}:</strong> ${xss(ban.reason)} <br>
+            <strong>${textKeys.label_reason}:</strong> ${escapeHtmlContent(ban.reason)} <br>
             <strong>${textKeys.label_id}:</strong> <codeid>${ban.id}</codeid> <br>
             ${authorLine}
             ${prepCustomMessage(txConfig.banlist.rejectionMessage)}

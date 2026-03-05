@@ -11,7 +11,7 @@ const console = consoleFactory(modulename);
 export default async function FXServerDownloadLog(ctx) {
     //Check permissions
     if (!ctx.admin.testPermission('console.view', modulename)) {
-        return ctx.utils.render('main/message', {message: 'You don\'t have permission to download this log.'});
+        return ctx.utils.renderMessage('You don\'t have permission to download this log.');
     }
 
     let readFile;
