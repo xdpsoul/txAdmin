@@ -1,44 +1,78 @@
 import got from "@lib/got";
 import { performance } from "node:perf_hooks";
 
-type TimeProbe = { url: string; parse: (body: string) => number };
 
-const timeProbes: TimeProbe[] = [
-    {
-        url: "https://time.akamai.com/?ms",
-        parse: (b) => parseFloat(b.trim()) * 1000
-    },
-    {
-        url: "https://www.cloudflare.com/cdn-cgi/trace",
-        parse: (b) => {
-            const tsLine = b.split("\n").find((l) => l.startsWith("ts="))!;
-            const ts = parseFloat(tsLine.slice(3));        // seconds.frac
-            return Math.round(ts * 1000);
-        }
-    },
-    {
-        url: "https://gettimeapi.dev/v1/time",
-        parse: (b) => {
-            const json = JSON.parse(b);
-            return Date.parse(json.date + 'T' + json.time + 'Z');
-        }
+export type ProbeTimezoneInfo = {
+    timezone: string;
+    offset: string;
+    abbr: string;
+};
+
+type ParseResult = {
+    time: number;
+    timezone?: ProbeTimezoneInfo;
+};
+
+type TimeProbe = {
+    url: string;
+    parse: (body: string) => ParseResult;
+};
+
+const getLocalTimezone = () => {
+    try {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    } catch {
+        return 'UTC';
     }
-];
+};
+
+const buildTimeProbes = (): TimeProbe[] => {
+    const localTz = getLocalTimezone();
+    return [
+        {
+            url: "https://time.akamai.com/?ms",
+            parse: (b) => ({ time: parseFloat(b.trim()) * 1000 }),
+        },
+        {
+            url: "https://www.cloudflare.com/cdn-cgi/trace",
+            parse: (b) => {
+                const tsLine = b.split("\n").find((l) => l.startsWith("ts="))!;
+                const ts = parseFloat(tsLine.slice(3));        // seconds.frac
+                return { time: Math.round(ts * 1000) };
+            },
+        },
+        {
+            url: `https://gettimeapi.dev/v1/time?timezone=${encodeURIComponent(localTz)}`,
+            parse: (b) => {
+                const json = JSON.parse(b);
+                return {
+                    time: Date.parse(json.iso8601),
+                    timezone: {
+                        timezone: json.timezone,
+                        offset: json.offset,
+                        abbr: json.abbr,
+                    },
+                };
+            },
+        },
+    ];
+};
 
 
-type ProbeSuccess = {
+export type ProbeSuccess = {
     url: string;
     success: true;
     serverTime: number;
     rtt: number;
     offset: number;
+    timezone?: ProbeTimezoneInfo;
 };
-type ProbeFailure = {
+export type ProbeFailure = {
     url: string;
     success: false;
     error: string;
-}
-type ProbeResult = ProbeSuccess | ProbeFailure;
+};
+export type ProbeResult = ProbeSuccess | ProbeFailure;
 
 const runProbe = async ({ url, parse }: TimeProbe): Promise<ProbeResult> => {
     const timeoutMs = 5000;
@@ -49,10 +83,17 @@ const runProbe = async ({ url, parse }: TimeProbe): Promise<ProbeResult> => {
             timeout: { request: timeoutMs },
         });
         const t1 = performance.now();
-        const serverTime = parse(res.body);
+        const parsed = parse(res.body);
         const rtt = t1 - t0;
-        const offset = serverTime + rtt / 2 - Date.now();
-        return { url, success: true, serverTime, rtt, offset };
+        const offset = parsed.time + rtt / 2 - Date.now();
+        return {
+            url,
+            success: true,
+            serverTime: parsed.time,
+            rtt,
+            offset,
+            timezone: parsed.timezone,
+        };
     } catch (error) {
         return { url, success: false, error: (error as Error)?.message ?? 'unknown error' };
     }
@@ -68,7 +109,7 @@ type RunAllProbesResult = {
 }
 
 export default async function probeInternetTime(): Promise<RunAllProbesResult> {
-    const results = await Promise.all(timeProbes.map(runProbe));
+    const results = await Promise.all(buildTimeProbes().map(runProbe));
     const successResults = results.filter((r) => r.success) as ProbeSuccess[];
     const avgTimeMs = successResults.reduce((acc, r) => acc + r.serverTime, 0) / successResults.length;
     const avgOffsetMs = successResults.reduce((acc, r) => acc + r.offset, 0) / successResults.length;
