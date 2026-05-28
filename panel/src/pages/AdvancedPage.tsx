@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { SendIcon, DownloadIcon, HelpCircleIcon, AlertCircleIcon, DeleteIcon, CommandIcon, SquareTerminalIcon, Loader2Icon } from "lucide-react";
 import { advancedCommands } from "@shared/advancedCommands";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import JsonCodeBlock from "@/components/JsonCodeBlock";
 import MarkdownProse from "@/components/MarkdownProse";
 import { cn, downloadTextFile } from "@/lib/utils";
 import { txToast } from "@/components/TxToaster";
@@ -90,7 +91,7 @@ function OutputArea({ output }: { output: RunAdvancedCommandRespSuccess | null }
                     </div>
                 ) : (
                     <div className="bg-muted/40 p-4 rounded-md">
-                        <pre className="whitespace-pre-wrap">{output.data}</pre>
+                        <JsonCodeBlock value={output.data} />
                     </div>
                 )
             ) : (
