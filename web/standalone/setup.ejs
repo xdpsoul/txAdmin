@@ -147,8 +147,8 @@
                                 <div class="step-content">
                                     A <strong>short</strong> server name to be used in txAdmin interface and
                                     Chat/Discord messages.
-                                    <input type="text" class="form-control mt-2" id="frmName" maxlength="22"
-                                        minlength="3" placeholder="Happy Server" value="<%= serverName %>" required>
+                                    <input type="text" class="form-control mt-2" id="frmName" maxlength="18"
+                                        minlength="1" placeholder="Happy Server" value="<%= serverName %>" required>
                                     <span id="frmNameError" class="text-danger fade-in d-none"></span>
                                     <div class="step-actions">
                                         <button class="btn btn-pill btn-secondary previous-step"
@@ -487,8 +487,8 @@
             frmNameError.classList.add('d-none');
             const name = frmName.value.trim();
 
-            if(name.length < 3 || name.length > 22){
-                frmNameError.innerHTML = `The name must have between 3 and 22 characters.`;
+            if(name.length < 1 || name.length > 18){
+                frmNameError.innerHTML = `The name must have between 1 and 18 characters.`;
                 frmNameError.classList.remove('d-none');
                 frmName.classList.add('is-invalid');
                 stepperInstace.wrongStep();

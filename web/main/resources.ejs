@@ -342,7 +342,7 @@
             btn.onclick = (e) => {
                 e.preventDefault();
                 const resAction = e.currentTarget.dataset.resaction;
-                const resName = e.currentTarget.dataset.resname;
+                const resName = decodeURIComponent(e.currentTarget.dataset.resname);
                 btnCommand(resAction, resName);
             };
         }

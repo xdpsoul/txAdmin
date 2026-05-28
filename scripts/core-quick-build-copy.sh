@@ -6,7 +6,7 @@ set -e
 GITHUB_REF="refs/tags/v7.7.7" npx tsx scripts/build/publish.ts
 
 # Windows
-TARGET_PATH_WIN=/e/FiveM/24574/citizen/system_resources/monitor
+TARGET_PATH_WIN=/e/FiveM/28108/citizen/system_resources/monitor
 echo "Copying build files to ${TARGET_PATH_WIN}..."
 rm -rf "${TARGET_PATH_WIN}/core"
 mkdir -p $TARGET_PATH_WIN
