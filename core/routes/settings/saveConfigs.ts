@@ -46,6 +46,7 @@ const cardNamesMap = {
     general: 'General',
     fxserver: 'FXServer',
     bans: 'Bans',
+    // FIXME:NEXT:UPDATE rename
     whitelist: 'Whitelist',
     discord: 'Discord',
     'game-menu': 'Game Menu',

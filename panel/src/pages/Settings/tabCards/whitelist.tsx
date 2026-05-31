@@ -181,7 +181,7 @@ export default function ConfigCardWhitelist({ cardCtx, pageCtx }: SettingsCardPr
                     If you have a Discord whitelisting process, include here a invite link.
                 </SettingItemDesc>
             </SettingItem>
-            <SettingItem label="Whitelisted Discord Roles" htmlFor={cfg.discordRoles.eid}>
+            <SettingItem label="Allowlisted Discord Roles" htmlFor={cfg.discordRoles.eid}>
                 <Input
                     id={cfg.discordRoles.eid}
                     ref={discordRolesRef}

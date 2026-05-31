@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Route as WouterRoute, Switch } from "wouter";
 import { PageErrorFallback } from "@/components/ErrorFallback";
@@ -48,9 +49,9 @@ const allRoutes: RouteType[] = [
         Page: <PlayerDropsPage />
     },
     {
-        path: '/whitelist',
-        title: 'Whitelist',
-        Page: <Iframe legacyUrl="whitelist" />
+        path: '/allowlist',
+        title: 'Allowlist',
+        Page: <Iframe legacyUrl="allowlist" />
     },
     {
         path: '/admins',
