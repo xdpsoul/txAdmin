@@ -69,7 +69,7 @@ export default async function PlayerCheckJoin(ctx: InitializedCtx) {
     //If checking not required at all
     if (
         !txConfig.banlist.enabled
-        && txConfig.whitelist.mode === 'disabled'
+        && (txConfig.whitelist.mode === 'disabled' || txConfig.whitelist.mode === 'external')
     ) {
         return sendTypedResp({ allow: true });
     }

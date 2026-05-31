@@ -7,7 +7,7 @@ import consts from "@shared/consts";
 const mode = typeDefinedConfig({
     name: 'Allowlist Mode',
     default: 'disabled',
-    validator: z.enum(['disabled', 'adminOnly', 'approvedLicense', 'discordMember', 'discordRoles']),
+    validator: z.enum(['disabled', 'adminOnly', 'approvedLicense', 'discordMember', 'discordRoles', 'external']),
     fixer: SYM_FIXER_DEFAULT,
 });
 

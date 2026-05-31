@@ -152,6 +152,9 @@ export default function ServerStatus() {
         } else if (globalStatus.server.whitelist === 'approvedLicense') {
             allowlistText = 'LICENSE';
             allowlistDesc = 'Only players with an approved license can join.';
+        } else if (globalStatus.server.whitelist === 'external') {
+            allowlistText = 'EXTERNAL';
+            allowlistDesc = 'Player joins are handled by an external resource.';
         }
 
         //Bot status - too long to show all the text, so just show the code
