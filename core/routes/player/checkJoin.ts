@@ -69,7 +69,7 @@ export default async function PlayerCheckJoin(ctx: InitializedCtx) {
     //If checking not required at all
     if (
         !txConfig.banlist.enabled
-        && txConfig.whitelist.mode === 'disabled'
+        && (txConfig.whitelist.mode === 'disabled' || txConfig.whitelist.mode === 'external')
     ) {
         return sendTypedResp({ allow: true });
     }
@@ -323,7 +323,7 @@ async function checkDiscordMember(
             errorMessage = textKeys.deny_message;
         }
     } catch (error) {
-        errorTitle = `Error validating Discord Server Member Whitelist:`;
+        errorTitle = `Error validating Discord Server Member Allowlist status:`;
         errorMessage = `<code>${(error as Error).message}</code>`;
     }
 
@@ -384,7 +384,7 @@ async function checkDiscordRoles(
             errorMessage = textKeys.deny_notmember_message;
         }
     } catch (error) {
-        errorTitle = `Error validating Discord Role Whitelist:`;
+        errorTitle = `Error validating Discord Role Allowlist status:`;
         errorMessage = `<code>${(error as Error).message}</code>`;
     }
 

@@ -32,7 +32,8 @@ export default () => {
     router.get('/legacy/masterActions', webAuthMw, routes.masterActions_page);
     router.get('/legacy/resources', webAuthMw, routes.resources);
     router.get('/legacy/serverLog', webAuthMw, routes.serverLog);
-    router.get('/legacy/whitelist', webAuthMw, routes.whitelist_page);
+    // FIXME:NEXT:UPDATE rename route handler
+    router.get('/legacy/allowlist', webAuthMw, routes.whitelist_page);
     router.get('/legacy/setup', webAuthMw, routes.setup_get);
     router.get('/legacy/deployer', webAuthMw, routes.deployer_stepper);
 
