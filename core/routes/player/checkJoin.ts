@@ -5,7 +5,7 @@ import { DatabaseActionBanType, DatabaseActionType, DatabaseWhitelistApprovalsTy
 import { anyUndefined, now } from '@lib/misc';
 import { filterPlayerHwids, parsePlayerIds, summarizeIdsArray } from '@lib/player/idUtils';
 import type { PlayerIdsObjectType } from "@shared/otherTypes";
-import { escapeHtmlContent } from '@lib/htmlRenderSafety';
+import { escapeHtmlContent, sanitizeSimpleHtml } from '@lib/htmlRenderSafety';
 import playerResolver from '@lib/player/playerResolver';
 import { Unit } from 'humanize-duration';
 import consoleFactory from '@lib/console';
@@ -25,8 +25,8 @@ const rejectMessageTemplate = (title: string, content: string) => {
     <div style="
         background-color: rgba(30, 30, 30, 0.5);
         padding: 20px;
-        border: solid 2px var(--color-modal-border);
-        border-radius: var(--border-radius-normal);
+        border: solid 1.5px #80282B;
+        border-radius: 8px;
         margin-top: 25px;
         position: relative;
     ">
@@ -35,18 +35,19 @@ const rejectMessageTemplate = (title: string, content: string) => {
         <p style="font-size: 1.25rem; padding: 0px">
             ${content}
         </p>
-        <img src="https://forum-cfx-re.akamaized.net/original/5X/c/3/8/e/c38e8346a39c6483385c0727bee5c2abc705156a.png" style="
+        <img src="https://forum-cfx-re.akamaized.net/original/5X/2/d/a/6/2da664a84eecb2609d72cf9bb17466d30b53e717.svg" style="
+            width: 28px;    
             position: absolute;
-            right: 15px;
-            bottom: 15px;
-            opacity: 25%;
+            right: -0.5px;
+            bottom: -1.0px;
+            opacity: 45%;
         ">
     </div>`.replaceAll(/[\r\n]/g, '');
 }
 
 const prepCustomMessage = (msg: string) => {
     if (!msg) return '';
-    return '<br>' + msg.trim().replaceAll(/\n/g, '<br>');
+    return '<br>' + sanitizeSimpleHtml(msg.trim()).replaceAll(/\n/g, '<br>');
 }
 
 //Resp Type
