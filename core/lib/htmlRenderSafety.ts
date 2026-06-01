@@ -129,6 +129,7 @@ export const sanitizeCssVarValue = (value: string) => {
 // Whitelist for sanitizeSimpleHtml — only tags actually used by renderMessage callers:
 // <strong> and <code>: resources.js timeout/offline messages
 // <br>: resources.js multi-line messages
+// All the tags are also seen in the checkJoin.ts rejectMessageTemplate function
 const simpleHtmlSanitizer = new FilterXSS({
     whiteList: {
         strong: [],

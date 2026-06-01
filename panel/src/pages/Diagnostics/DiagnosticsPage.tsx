@@ -44,7 +44,8 @@ export default function DiagnosticsPage() {
     return (
         <div className="w-full space-y-4">
             {/* Diagnostics Report Card */}
-            <Card className="bg-info-hint border-info">
+            {/* FIXME:NEXT:UPDATE: reenable this */}
+            {/* <Card className="bg-info-hint border-info">
                 <CardHeader className="bg-transparent pb-2">
                     <CardTitle>Diagnostics Report</CardTitle>
                 </CardHeader>
@@ -69,7 +70,7 @@ export default function DiagnosticsPage() {
                         </Button>
                     </div>
                 </CardContent>
-            </Card>
+            </Card> */}
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 <div className="space-y-4">

@@ -1,5 +1,5 @@
 /*
-    FIXME:REMOVE:NEXT:UPDATE
+    FIXME:NEXT:UPDATE REMOVE OLD KEYS
     - dynamic:
         - dynamicNewFeatTs-*
         - txa:img-cache:*
@@ -45,7 +45,7 @@ export enum LocalStorageKey {
 
 /**
  * Migrate old storage keys to the new ones, and wipe the old ones.
- * FIXME:REMOVE:NEXT:UPDATE
+ * FIXME:NEXT:UPDATE REMOVE OLD KEYS
  */
 export const migrateStorageKeys = () => {
     const migrateKey = (oldKey: string, newKey: string) => {

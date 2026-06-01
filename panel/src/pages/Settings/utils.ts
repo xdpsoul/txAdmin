@@ -53,7 +53,7 @@ export const SYM_RESET_CONFIG = Symbol('Settings:ResetConfig');
 
 
 /**
- * Helper to get the iferred type of a config object.
+ * Helper to get the inferred type of a config object.
  * TODO: when the UI gets the default values built-in, return them here
  */
 export const getPageConfig = <

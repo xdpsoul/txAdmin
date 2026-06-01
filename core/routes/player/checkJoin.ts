@@ -7,7 +7,7 @@ import { filterPlayerHwids, parsePlayerIds, summarizeIdsArray } from '@lib/playe
 import type { PlayerIdsObjectType } from "@shared/otherTypes";
 import { escapeHtmlContent } from '@lib/htmlRenderSafety';
 import playerResolver from '@lib/player/playerResolver';
-import humanizeDuration, { Unit } from 'humanize-duration';
+import { Unit } from 'humanize-duration';
 import consoleFactory from '@lib/console';
 import { TimeCounter } from '@modules/Metrics/statsUtils';
 import { InitializedCtx } from '@modules/WebServer/ctxTypes';

@@ -397,7 +397,7 @@ const handleDiscordCard: CardHandler = async (inputConfig, sendTypedResp) => {
             type: 'success',
             md: true,
             title: 'FXServer Settings Saved!',
-            msg: `${successMsg}\nIf _(and only if)_ the status embed is not being updated, check the \`System > Console Log\` page to look for embed errors.`,
+            msg: `${successMsg}\nIf _(and only if)_ the status embed is not being updated, check the [System > Console Log](/system/console-log) page to look for embed errors.`,
         }
     };
 }
