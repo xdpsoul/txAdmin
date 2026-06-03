@@ -279,8 +279,7 @@ async function checkAdminOnlyMode(
     //Prepare rejection message
     const reason = rejectMessageTemplate(
         textKeys.mode_title,
-        `${textKeys.deny_message} <br>
-        ${prepCustomMessage(txConfig.whitelist.rejectionMessage)}`
+        textKeys.deny_message
     );
     return { allow: false, reason };
 }
