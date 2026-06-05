@@ -98,6 +98,9 @@ export default async function SaveSettingsConfigs(ctx: AuthedCtx) {
     const { resetKeys, changes: inputConfig } = bodySchemaRes.data;
     const cardName = cardNamesMap[ctx.params.card as keyof typeof cardNamesMap] ?? 'UNKNOWN';
 
+    // FIXME:NEXT:UPDATE remove
+    const displayCardName = cardName === 'Whitelist' ? 'Allowlist' : cardName;
+
     //Delegate to the specific card handlers - if required
     let handlerResp: CardHandlerSuccessResp | void = { processedConfig: inputConfig };
     try {
@@ -112,7 +115,7 @@ export default async function SaveSettingsConfigs(ctx: AuthedCtx) {
         return sendTypedResp({
             type: 'error',
             md: true,
-            title: `Error processing the ${cardName} changes.`,
+            title: `Error processing the ${displayCardName} changes.`,
             msg: (error as any).message,
         });
     }
@@ -130,7 +133,7 @@ export default async function SaveSettingsConfigs(ctx: AuthedCtx) {
         return sendTypedResp({
             type: 'error',
             md: true,
-            title: `Error processing the ${cardName} changes.`,
+            title: `Error processing the ${displayCardName} changes.`,
             msg: (error as any).message,
         });
     }
@@ -143,7 +146,7 @@ export default async function SaveSettingsConfigs(ctx: AuthedCtx) {
         }
         return sendTypedResp({
             type: 'success',
-            msg: `${cardName} Settings saved!`,
+            msg: `${displayCardName} Settings saved!`,
             ...(handlerResp?.successToast ?? {}),
             stored: txCore.configStore.getStoredConfig(),
             changelog: txCore.configStore.getChangelog(),
@@ -153,7 +156,7 @@ export default async function SaveSettingsConfigs(ctx: AuthedCtx) {
         return sendTypedResp({
             type: 'error',
             md: true,
-            title: `Error saving the ${cardName} changes.`,
+            title: `Error saving the ${displayCardName} changes.`,
             msg: (error as any).message,
         });
     }
@@ -396,7 +399,7 @@ const handleDiscordCard: CardHandler = async (inputConfig, sendTypedResp) => {
         successToast: {
             type: 'success',
             md: true,
-            title: 'FXServer Settings Saved!',
+            title: 'Discord Bot Settings Saved!',
             msg: `${successMsg}\nIf _(and only if)_ the status embed is not being updated, check the [System > Console Log](/system/console-log) page to look for embed errors.`,
         }
     };

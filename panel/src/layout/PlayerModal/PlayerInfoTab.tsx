@@ -228,7 +228,7 @@ export default function PlayerInfoTab({ playerRef, player, serverTime, tsFetch, 
                 </div>}
 
                 <div className="py-0.5 grid grid-cols-3 gap-4 px-0">
-                    <dt className="text-sm font-medium leading-6 text-muted-foreground">ID Whitelisted</dt>
+                    <dt className="text-sm font-medium leading-6 text-muted-foreground">ID Allowlisted</dt>
                     <dd className="text-sm leading-6 mt-0">{whitelistedText}</dd>
                     <dd className="text-right">
                         <Button
@@ -238,7 +238,7 @@ export default function PlayerInfoTab({ playerRef, player, serverTime, tsFetch, 
                             onClick={handleWhitelistClick}
                             disabled={!hasPerm('players.whitelist')}
                         >
-                            {player.tsWhitelisted ? 'Remove' : 'Add WL'}
+                            {player.tsWhitelisted ? 'Remove' : 'Allow'}
                         </Button>
                     </dd>
                 </div>

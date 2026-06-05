@@ -30,7 +30,6 @@ export const getMutableConvars = (isCmdLine = false) => {
         txConfig.whitelist.mode !== 'disabled'
         && txConfig.whitelist.mode !== 'external'
     );
-    const appearAllowlisted = txConfig.whitelist.mode !== 'disabled';
 
     const convars: RawConvarSetTuple[] = [
         ['setr', 'locale', txConfig.general.language ?? 'en'],
@@ -47,17 +46,23 @@ export const getMutableConvars = (isCmdLine = false) => {
         ['set', 'hideDefaultScheduledRestartWarning', txConfig.gameFeatures.hideDefaultScheduledRestartWarning],
 
         //Server variables
-        ['sets', 'sv_appearAllowlisted', appearAllowlisted],
+        ['sets', 'sv_appearAllowlisted', txConfig.whitelist.mode !== 'disabled'],
 
         // //NOTE: no auto update, maybe we shouldn't tie core and server verbosity anyways
         // ['setr', 'verbose', console.isVerbose],
     ];
 
-    if (appearAllowlisted && txConfig.whitelist.rejectionMessage) {
+    if (
+        txConfig.whitelist.mode !== 'disabled'
+        && txConfig.whitelist.mode !== 'adminOnly'
+        && txConfig.whitelist.rejectionMessage
+    ) {
         const instructions = isCmdLine
             ? txConfig.whitelist.rejectionMessage.replaceAll('\n', '\\n')
             : txConfig.whitelist.rejectionMessage;
         convars.push(['sets', 'sv_allowlistInstructions', instructions]);
+    } else {
+        convars.push(['sets', 'sv_allowlistInstructions', '']);
     }
 
     return convars.map((c) => polishConvarSetTuple(c, isCmdLine));
