@@ -225,7 +225,7 @@
                 "zero_players": "Ingen spillere fundet"
             },
             "filter": {
-                "label": "FFiltrer efter",
+                "label": "Filtrer efter",
                 "no_filter": "Ingen filter",
                 "is_admin": "Er admin",
                 "is_injured": "Såret / Død",
