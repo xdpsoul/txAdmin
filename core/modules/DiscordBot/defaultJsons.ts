@@ -26,10 +26,6 @@ export const defaultEmbedJson = JSON.stringify({
             "name": "> UPTIME",
             "value": "```\n{{uptime}}\n```",
             "inline": true
-        },
-        {
-            "name": "> SYSTEM",
-            "value": "```\nCPU: {{cpuModel}}\nRAM: {{ramUsage}}\n```"
         }
     ],
     "image": {
