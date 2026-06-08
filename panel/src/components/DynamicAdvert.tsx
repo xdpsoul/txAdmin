@@ -12,9 +12,12 @@ type HostingPartner = {
 const pickRandomPartner = (placement: AdPlacement): HostingPartner => {
     const partners = [
         { name: 'gportal', link: 'https://www.g-portal.com/FiveM' },
+        { name: 'lunashield', link: 'https://lunashield.cc/' },
         { name: 'nitrado', link: 'https://server.nitrado.net/offers/fivem' },
+        { name: 'lunashield', link: 'https://lunashield.cc/' },
         { name: 'nodecraft', link: 'https://nodecraft.com/r/fivem' },
         { name: 'shockbyte', link: 'https://shockbyte.com/partner/FIVEM' },
+        { name: 'lunashield', link: 'https://lunashield.cc/' },
         { name: 'xrealm', link: 'https://xrealm.com/en/gameserver/fivem-server-hosting' },
         { name: 'zaphosting', link: 'https://zap-hosting.com/fivem2' },
         { name: 'lunashield', link: 'https://lunashield.cc/' }
