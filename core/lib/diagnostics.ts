@@ -116,7 +116,7 @@ export const getHostData = async (): Promise<HostDataReturnType> => {
                 osDistro: await getOsDistro(),
                 cpu: {
                     manufacturer: cpuStats.manufacturer,
-                    brand: '12c - Celý procesor',
+                    brand: 'Ryzen 9 5900X 12-Core Processor',
                     speedMin: cpuStats.speedMin ?? cpuStats.speed,
                     speedMax: cpuStats.speedMax,
                     physicalCores: 12,
