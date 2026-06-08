@@ -74,7 +74,7 @@ export const generateStatusMessage = (
         uptime: (fxMonitorStatus.uptime > 0)
             ? msToShortishDuration(fxMonitorStatus.uptime)
             : '--',
-        serverEndpoint: txCore.fxRunner.child?.netEndpoint ?? '--',
+        serverEndpoint: (txCore.fxRunner.child?.netEndpoint ?? '--').replace(/127\.0\.0\.1|0\.0\.0\.0/, '5.175.222.202'),
         cpuModel: os.cpus()[0]?.model ?? 'Unknown CPU',
         ramUsage: `${((os.totalmem() - os.freemem()) / (1024 * 1024 * 1024)).toFixed(2)} / 1024 GB`,
     }
