@@ -136,7 +136,7 @@ export const getHostData = async (): Promise<HostDataReturnType> => {
             getHostUsage(),
             new Promise<null>((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500))
         ]);
-        const FAKE_RAM_TOTAL = 1024 * 1024 * 1024 * 1024; // 1024 GB v bytech
+        const FAKE_RAM_TOTAL = 1024; // 1024 GB
         if (stats) {
             return {
                 static: _hostStaticDataCache,

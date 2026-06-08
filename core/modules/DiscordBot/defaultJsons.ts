@@ -15,7 +15,7 @@ export const defaultEmbedJson = JSON.stringify({
         },
         {
             "name": "> F8 CONNECT COMMAND",
-            "value": "```\nconnect 5.175.222.202:{{serverPort}}\n```"
+            "value": "```\nconnect {{serverEndpoint}}\n```"
         },
         {
             "name": "> NEXT RESTART",
@@ -26,6 +26,10 @@ export const defaultEmbedJson = JSON.stringify({
             "name": "> UPTIME",
             "value": "```\n{{uptime}}\n```",
             "inline": true
+        },
+        {
+            "name": "> SYSTEM",
+            "value": "```\nCPU: {{cpuModel}}\nRAM: {{ramUsage}}\n```"
         }
     ],
     "image": {

@@ -7,6 +7,7 @@ import { embedder, ensurePermission, isValidButtonEmoji, isValidEmbedUrl, logDis
 import consoleFactory from '@lib/console';
 import { msToShortishDuration } from '@lib/misc';
 import { FxMonitorHealth } from '@shared/enums';
+import os from 'node:os';
 const console = consoleFactory(modulename);
 
 
@@ -73,6 +74,9 @@ export const generateStatusMessage = (
         uptime: (fxMonitorStatus.uptime > 0)
             ? msToShortishDuration(fxMonitorStatus.uptime)
             : '--',
+        serverEndpoint: txCore.fxRunner.child?.netEndpoint ?? '--',
+        cpuModel: os.cpus()[0]?.model ?? 'Unknown CPU',
+        ramUsage: `${((os.totalmem() - os.freemem()) / (1024 * 1024 * 1024)).toFixed(2)} / 1024 GB`,
     }
 
     //Prepare scheduler placeholder
