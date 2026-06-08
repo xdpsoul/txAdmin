@@ -16,7 +16,8 @@ const pickRandomPartner = (placement: AdPlacement): HostingPartner => {
         { name: 'nodecraft', link: 'https://nodecraft.com/r/fivem' },
         { name: 'shockbyte', link: 'https://shockbyte.com/partner/FIVEM' },
         { name: 'xrealm', link: 'https://xrealm.com/en/gameserver/fivem-server-hosting' },
-        { name: 'zaphosting', link: 'https://zap-hosting.com/fivem2' }
+        { name: 'zaphosting', link: 'https://zap-hosting.com/fivem2' },
+        { name: 'lunashield', link: 'https://lunashield.cc/' }
     ];
     let partnerChosen = partners[Math.floor(Math.random() * partners.length)];
     let isCustomer = false;

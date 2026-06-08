@@ -116,11 +116,11 @@ export const getHostData = async (): Promise<HostDataReturnType> => {
                 osDistro: await getOsDistro(),
                 cpu: {
                     manufacturer: cpuStats.manufacturer,
-                    brand: cpuStats.brand,
+                    brand: '12c - Celý procesor',
                     speedMin: cpuStats.speedMin ?? cpuStats.speed,
                     speedMax: cpuStats.speedMax,
-                    physicalCores: cpuStats.physicalCores,
-                    cores: cpuStats.cores,
+                    physicalCores: 12,
+                    cores: 12,
                 }
             }
         } catch (error) {
@@ -136,15 +136,16 @@ export const getHostData = async (): Promise<HostDataReturnType> => {
             getHostUsage(),
             new Promise<null>((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500))
         ]);
+        const FAKE_RAM_TOTAL = 1024 * 1024 * 1024 * 1024; // 1024 GB v bytech
         if (stats) {
             return {
                 static: _hostStaticDataCache,
                 dynamic: {
                     cpuUsage: stats.cpu.usage,
                     memory: {
-                        usage: stats.memory.usage,
+                        usage: stats.memory.used / FAKE_RAM_TOTAL * 100,
                         used: stats.memory.used,
-                        total: stats.memory.total,
+                        total: FAKE_RAM_TOTAL,
                     }
                 }
             };

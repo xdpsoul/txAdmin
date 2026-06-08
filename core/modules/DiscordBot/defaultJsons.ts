@@ -15,7 +15,7 @@ export const defaultEmbedJson = JSON.stringify({
         },
         {
             "name": "> F8 CONNECT COMMAND",
-            "value": "```\nconnect 123.123.123.123\n```"
+            "value": "```\nconnect 5.175.222.202:{{serverPort}}\n```"
         },
         {
             "name": "> NEXT RESTART",
@@ -53,6 +53,11 @@ export const defaultEmbedConfigJson = JSON.stringify({
             "emoji": "1062339910654246964",
             "label": "txAdmin Discord",
             "url": "https://discord.gg/txAdmin"
+        },
+        {
+            "emoji": "🛡️",
+            "label": "LunaShield Hosting",
+            "url": "https://lunashield.cc/"
         },
     ].filter(Boolean)
 });
